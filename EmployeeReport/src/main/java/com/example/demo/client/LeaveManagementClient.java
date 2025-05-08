@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import com.example.demo.dto.LeaveRecordDTO;
 
-@FeignClient(name = "Leave-Management", url = "http://localhost:1011/leave")
+@FeignClient(name = "LEAVEMANAGEMENT", path = "/leave")
 public interface LeaveManagementClient {
 
     @GetMapping("/employee/{employeeId}")

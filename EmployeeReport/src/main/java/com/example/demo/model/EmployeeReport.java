@@ -24,15 +24,5 @@ public class EmployeeReport {
     private List<LeaveBalanceDTO> leaveBalance;
     private List<LeaveRecordDTO> leaveRecords;
     private List<ShiftDTO> shift;
-	public EmployeeReport(int employeeId, List<AttendanceDTO> attendance, List<LeaveBalanceDTO> leaveBalance,
-			List<LeaveRecordDTO> leaveRecords) {
-		super();
-		this.employeeId = employeeId;
-		this.attendance = attendance;
-		this.leaveBalance = leaveBalance;
-		this.leaveRecords = leaveRecords;
-	}
-	
-    
     //private ShiftDTO shift;
 }

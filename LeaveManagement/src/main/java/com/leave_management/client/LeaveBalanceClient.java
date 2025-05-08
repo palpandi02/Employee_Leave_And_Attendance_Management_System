@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@FeignClient(value="Leave-Balance",url="http://localhost:1002/balance")
+@FeignClient(name="LEAVEBALANCE",path="/balance")
 public interface LeaveBalanceClient {
 
     @GetMapping("/{employeeId}/{leaveType}")

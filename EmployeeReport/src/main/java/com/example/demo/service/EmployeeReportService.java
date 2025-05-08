@@ -58,8 +58,8 @@ public class EmployeeReportService {
     	return new EmployeeReport(employeeId,
     			attendanceClient.getAttendanceByEmployeeId(employeeId),
     			leaveBalanceClient.getBalancesByEmployeeId(employeeId),
-    			leaveManagementClient.getLeaveHistoryByEmployeeId(employeeId)
-    			//shiftClient.getShiftsByEmployeeId(employeeId)
+    			leaveManagementClient.getLeaveHistoryByEmployeeId(employeeId),
+    			shiftClient.getShiftsByEmployeeId(employeeId)
     			);
     }
 }

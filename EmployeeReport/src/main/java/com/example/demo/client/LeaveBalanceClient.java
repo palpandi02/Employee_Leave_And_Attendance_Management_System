@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import com.example.demo.dto.LeaveBalanceDTO;
 
-@FeignClient(name = "Leave-Balance", url = "http://localhost:1002/balance")
+@FeignClient(name = "LEAVEBALANCE", path = "/balance")
 public interface LeaveBalanceClient {
 
     @GetMapping("/employee/{employeeId}")

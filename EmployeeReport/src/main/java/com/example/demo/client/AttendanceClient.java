@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import com.example.demo.dto.AttendanceDTO;
 
-@FeignClient(name = "Attendance-Service", url = "http://localhost:1006/attendance")
+@FeignClient(name = "ATTENDANCESERVICE", path = "/attendance")
 public interface AttendanceClient {
 
     @GetMapping("/employee/{employeeId}")
