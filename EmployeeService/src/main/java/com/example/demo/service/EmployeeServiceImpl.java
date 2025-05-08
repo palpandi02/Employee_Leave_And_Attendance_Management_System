@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.demo.Exception.EmployeeIdNotFound;
 import com.example.demo.feignclient.LeaveClient;
 import com.example.demo.model.Employee;
 import com.example.demo.repository.EmployeeRepository;
@@ -24,7 +25,9 @@ public class EmployeeServiceImpl implements EmployeeService{
 	    leaveServiceClient.initializeLeaveBalance(savedEmployee.getId());
 	    return savedEmployee;
 	}
-
+	public boolean doesEmployeeExist(Integer id) {
+  	  return employeeRepository.findById(id).isPresent();
+  	  }
 
 	public List<Employee> getAllEmployees() {
 		return employeeRepository.findAll();
@@ -39,12 +42,13 @@ public class EmployeeServiceImpl implements EmployeeService{
 	}
 
 	public void deleteEmployee(Integer id) {
+		leaveServiceClient.deleteByEmployeeId(id);
 		employeeRepository.deleteById(id);
 	}
 
-	public Employee updateEmployee(Integer id, Employee employeeDetails) {
+	public Employee updateEmployee(Integer id, Employee employeeDetails) throws EmployeeIdNotFound {
 		Employee employee = employeeRepository.findById(id)
-				.orElseThrow(() -> new RuntimeException("Employee not found with id " + id));
+				.orElseThrow(() -> new EmployeeIdNotFound("Employee not found with id " + id));
 
 		employee.setName(employeeDetails.getName());
 		employee.setEmail(employeeDetails.getEmail());

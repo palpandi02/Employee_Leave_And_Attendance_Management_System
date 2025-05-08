@@ -10,6 +10,6 @@ import java.time.LocalDate;
 
 public interface AttendanceRepository extends JpaRepository<Attendance, Integer> {
     Optional<Attendance> findByEmployeeIdAndDate(int employeeId, LocalDate date);
-    List<Attendance> findAllByEmployeeId(int employeeId);
+    List<Attendance> findByEmployeeId(int employeeId);
 }
 

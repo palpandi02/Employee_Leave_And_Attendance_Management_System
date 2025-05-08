@@ -73,4 +73,7 @@ public class LeaveService {
     public List<LeaveRequest> getRequestsByStatus(String status) {
         return requestRepo.findByStatus(status);
     }
+    public List<LeaveRequest> getRequestsByEmployeeId(int employeeId) {
+        return requestRepo.findByEmployeeId(employeeId);
+    }
 }

@@ -1,27 +1,31 @@
 package com.example.demo.service;
 
+import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.Duration;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.demo.exception.ClockingException;
 import com.example.demo.model.Attendance;
 import com.example.demo.repository.AttendanceRepository;
 
 @Service
-public class AttendanceServiceImpl {
+public class AttendanceServiceImpl implements AttendanceService{
 
     @Autowired
     private AttendanceRepository repo;
 
-    public Attendance clockIn(int employeeId) {
+    public Attendance clockIn(int employeeId) throws ClockingException {
         LocalDate today = LocalDate.now();
-        repo.findByEmployeeIdAndDate(employeeId, today).ifPresent(a -> {
-            throw new RuntimeException("Already clocked in");
-        });
+        Optional<Attendance> existingAttendance = repo.findByEmployeeIdAndDate(employeeId, today);
+        
+        if (existingAttendance.isPresent()) {
+            throw new ClockingException("Already clocked in");
+        }
 
         Attendance attendance = new Attendance();
         attendance.setEmployeeId(employeeId);
@@ -30,6 +34,7 @@ public class AttendanceServiceImpl {
 
         return repo.save(attendance);
     }
+
 
     public Attendance clockOut(int employeeId) {
         LocalDate today = LocalDate.now();
@@ -42,12 +47,11 @@ public class AttendanceServiceImpl {
         return repo.save(attendance);
     }
 
-    public List<Attendance> getAttendanceHistory(int employeeId) {
-        return repo.findAllByEmployeeId(employeeId);
-    }
-
-    private Long calculateWorkHours(LocalDateTime clockIn, LocalDateTime clockOut) {
+    public Long calculateWorkHours(LocalDateTime clockIn, LocalDateTime clockOut) {
         Duration duration = Duration.between(clockIn, clockOut);
         return duration.toHours();
+    }
+    public List<Attendance> getAttendanceByEmployeeId(int employeeId) {
+        return repo.findByEmployeeId(employeeId);
     }
 }

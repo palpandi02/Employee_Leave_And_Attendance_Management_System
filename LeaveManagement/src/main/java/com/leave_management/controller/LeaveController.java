@@ -47,4 +47,8 @@ public class LeaveController {
     public List<LeaveRequest> byStatus(@PathVariable String status) {
         return service.getRequestsByStatus(status);
     }
+    @GetMapping("/employee/{employeeId}")
+    public List<LeaveRequest> getLeaveHistoryByEmployeeId(@PathVariable int employeeId) {
+        return service.getRequestsByEmployeeId(employeeId);
+    }
 }

@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import com.example.demo.Exception.EmployeeIdNotFound;
 import com.example.demo.model.Employee;
 import com.example.demo.service.EmployeeServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +15,10 @@ public class EmployeeController {
 
 	@Autowired
 	private EmployeeServiceImpl employeeService;
-
+	@GetMapping("/check/{id}")
+	public boolean doesEmployeeExist(@PathVariable Integer id) {
+	    return employeeService.getEmployeeById(id).isPresent();
+	}
 	//  http://localhost:8082/employees
 	@PostMapping
 	public Employee createEmployee(@RequestBody Employee employee) {
@@ -40,13 +44,13 @@ public class EmployeeController {
 	}
 
 	//  http://localhost:8082/employees/{id}
-	@PutMapping("/{id}")
-	public Employee updateEmployee(@PathVariable Integer id, @RequestBody Employee employeeDetails) {
+	@PutMapping("/update/{id}")
+	public Employee updateEmployee(@PathVariable Integer id, @RequestBody Employee employeeDetails) throws EmployeeIdNotFound {
 		return employeeService.updateEmployee(id, employeeDetails);
 	}
 
 	//  http://localhost:8082/employees/{id}
-	@DeleteMapping("/{id}")
+	@DeleteMapping("/delete/{id}")
 	public void deleteEmployee(@PathVariable Integer id) {
 		employeeService.deleteEmployee(id);
 	}

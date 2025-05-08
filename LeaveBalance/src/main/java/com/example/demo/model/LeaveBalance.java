@@ -11,7 +11,7 @@ public class LeaveBalance {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private int employeeId;
+    private long employeeId;
     private String leaveType;
     private Integer balance;
 }

@@ -3,13 +3,14 @@ package com.example.demo;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
-
+import org.springframework.cloud.openfeign.EnableFeignClients;
+@EnableFeignClients
 @SpringBootApplication
 @EnableDiscoveryClient
-public class LeaveBalance1Application {
+public class EmployeeReportApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(LeaveBalance1Application.class, args);
+		SpringApplication.run(EmployeeReportApplication.class, args);
 	}
 
 }

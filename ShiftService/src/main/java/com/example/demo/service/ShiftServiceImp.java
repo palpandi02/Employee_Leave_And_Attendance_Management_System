@@ -104,4 +104,7 @@ public class ShiftServiceImp implements ShiftService {
         }
         return "Shift not found for employee ID " + employeeId;
     }
+    public List<Shift> getShiftsByEmployeeId(int employeeId) {
+        return repository.findShiftsByEmployeeId(employeeId);
+    }
 }

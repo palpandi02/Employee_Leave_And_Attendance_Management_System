@@ -12,4 +12,6 @@ public interface ShiftService {
     String processSwapRequests();
     String approveSwapByEmployeeId(int employeeId);
     String rejectSwapByEmployeeId(int employeeId);
+	List<Shift> getShiftsByEmployeeId(int employeeId);
+	
 }

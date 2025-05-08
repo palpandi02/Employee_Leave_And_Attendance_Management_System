@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.demo.exception.ClockingException;
 import com.example.demo.model.Attendance;
 import com.example.demo.service.AttendanceServiceImpl;
 
@@ -22,7 +23,7 @@ public class AttendanceController {
 
 	// URL: http://localhost:8081/attendance/clockin
 	@PostMapping("/clockin/{employeeId}")
-	public Attendance clockIn(@PathVariable("employeeId") int employeeId) {
+	public Attendance clockIn(@PathVariable("employeeId") int employeeId) throws ClockingException {
 		return service.clockIn(employeeId);
 
 	}
@@ -34,9 +35,9 @@ public class AttendanceController {
 
 	}
 
-	// URL: http://localhost:8081/attendance/history
-	@GetMapping("/history/{employeeId}")
-	public List<Attendance> getAttendanceHistory(@PathVariable("employeeId") int employeeId) {
-		return service.getAttendanceHistory(employeeId);
+	// URL: http://localhost:8081/attendance/employee
+	@GetMapping("/employee/{employeeId}")
+	public List<Attendance> getAttendanceByEmployeeId(@PathVariable int employeeId) {
+	    return service.getAttendanceByEmployeeId(employeeId);
 	}
 }

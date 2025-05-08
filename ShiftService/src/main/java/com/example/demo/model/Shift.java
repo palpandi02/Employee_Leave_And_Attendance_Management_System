@@ -1,12 +1,9 @@
 package com.example.demo.model;
  
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
+import lombok.*;
+ 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -17,10 +14,12 @@ public class Shift {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
  
+    @Min(value = 1, message = "Employee ID must be a positive number")
     private int employeeId;
  
+    @NotBlank(message = "Shift type must not be blank")
+    @Pattern(regexp = "Day|Night", message = "Shift type must be either 'Day' or 'Night'")
     private String shiftType; // "Day" or "Night"
  
     private boolean swapRequested;
-
 }
