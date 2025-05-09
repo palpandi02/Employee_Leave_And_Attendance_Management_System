@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.client.AttendanceClient;
+import com.example.demo.client.EmployeeServiceClient;
 import com.example.demo.client.LeaveBalanceClient;
 import com.example.demo.client.LeaveManagementClient;
 import com.example.demo.client.ShiftClient;
@@ -30,6 +31,8 @@ public class EmployeeReportService {
 
     @Autowired
     private ShiftClient shiftClient;
+    @Autowired
+    private EmployeeServiceClient employeeServiceClient;
 
     public EmployeeReport generateReportByEmployeeId(int employeeId) {
         // Fetch data from all services
@@ -56,6 +59,7 @@ public class EmployeeReportService {
 //                .leaveRecords(employeeLeaves)
 //                .shift(shift)
 //                .build();
+    	employeeServiceClient.doesEmployeeExist(employeeId);
     	List<AttendanceDTO> attendance=attendanceClient.getAttendanceByEmployeeId(employeeId);
     	Map<String, Object> monthlyReport=attendanceClient.getDetailedStats(employeeId);
 		Map<String, Long> shiftReport=shiftClient.getShiftCountByType(employeeId);

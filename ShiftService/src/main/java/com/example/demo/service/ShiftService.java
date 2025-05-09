@@ -1,8 +1,10 @@
 package com.example.demo.service;
  
 import com.example.demo.model.Shift;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
  
 public interface ShiftService {
     List<Shift> findAll();
@@ -13,6 +15,8 @@ public interface ShiftService {
     String processSwapRequests();
     String approveSwapByEmployeeId(int employeeId);
     String rejectSwapByEmployeeId(int employeeId);
-	List<Shift> getShiftsByEmployeeId(int employeeId);
-	Map<String, Long> countShiftsByTypeForEmployee(int employeeId);
+    List<Shift> getShiftsByEmployeeId(int employeeId);
+    Map<String, Long> countShiftsByTypeForEmployee(int employeeId);
+    Optional<Shift> findByEmployeeIdAndDate(int employeeId, LocalDate date);
+    List<Shift> getShiftsByDate(LocalDate date);
 }

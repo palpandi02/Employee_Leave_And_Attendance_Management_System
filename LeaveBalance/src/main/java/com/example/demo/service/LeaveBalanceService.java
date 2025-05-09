@@ -6,7 +6,8 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.demo.exception.LeaveTypeNotFound;
+import com.example.demo.exception.EmployeeIdNotFoundException;
+import com.example.demo.exception.LeaveTypeNotFoundException;
 import com.example.demo.model.LeaveBalance;
 import com.example.demo.repository.LeaveBalanceRepository;
 import com.example.demo.util.LeaveTypes;
@@ -26,10 +27,13 @@ public class LeaveBalanceService {
             repo.save(balance);
         });
     }
-    public Optional<LeaveBalance> getBalanceByType(int employeeId, String leaveType) {
-        return repo.findByEmployeeIdAndLeaveType(employeeId, leaveType);
+    public Optional<LeaveBalance> getBalanceByType(int employeeId, String leaveType) throws EmployeeIdNotFoundException {
+    	Optional<LeaveBalance> optional =repo.findByEmployeeIdAndLeaveType(employeeId, leaveType);
+    	if(optional.isEmpty())
+    		throw new EmployeeIdNotFoundException("Employee Id and Leave Type Not Found");
+        return optional;
     }
-    public String updateLeaveBalance(LeaveBalance updated) throws LeaveTypeNotFound {
+    public String updateLeaveBalance(LeaveBalance updated) throws LeaveTypeNotFoundException {
         Optional<LeaveBalance> optional = repo.findByEmployeeIdAndLeaveType(
             (long) updated.getEmployeeId(), updated.getLeaveType());
 
@@ -39,7 +43,7 @@ public class LeaveBalanceService {
             repo.save(existing);
             return "Leave balance updated successfully.";
         } else {
-            throw new LeaveTypeNotFound("Leave type not found for this employee.");
+            throw new LeaveTypeNotFoundException("Leave type not found for this employee.");
         }
     }
     public List<LeaveBalance> getLeaveBalancesByEmployeeId(int employeeId) {

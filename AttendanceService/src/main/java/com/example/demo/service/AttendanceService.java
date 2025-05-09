@@ -9,7 +9,7 @@ import com.example.demo.model.Attendance;
 
 public interface AttendanceService {
 	public Attendance clockIn(int employeeId) throws ClockingException;
-	public Attendance clockOut(int employeeId);
+	public Attendance clockOut(int employeeId) throws ClockingException;
 	public Long calculateWorkHours(LocalDateTime clockIn, LocalDateTime clockOut);
 	Map<String, Object> getDetailedAttendanceStats(int employeeId);
 }

@@ -25,7 +25,7 @@ public class EmployeeServiceImpl implements EmployeeService{
 	    leaveServiceClient.initializeLeaveBalance(savedEmployee.getId());
 	    return savedEmployee;
 	}
-	public boolean doesEmployeeExist(Integer id) {
+	public boolean doesEmployeeExist(int id) {
   	  return employeeRepository.findById(id).isPresent();
   	  }
 
@@ -33,20 +33,24 @@ public class EmployeeServiceImpl implements EmployeeService{
 		return employeeRepository.findAll();
 	}
 
-	public Optional<Employee> getEmployeeById(Integer id) {
-		return employeeRepository.findById(id);
+	public Optional<Employee> getEmployeeById(int id) throws EmployeeIdNotFound {
+		Optional<Employee> optional=employeeRepository.findById(id);
+		if(optional.isPresent())
+		 return optional;
+		else
+		 throw new EmployeeIdNotFound("Employee not found with id " + id);
 	}
 
 	public Optional<Employee> getEmployeeByEmail(String email) {
 		return employeeRepository.findByEmail(email);
 	}
 
-	public void deleteEmployee(Integer id) {
+	public void deleteEmployee(int id) {
 		leaveServiceClient.deleteByEmployeeId(id);
 		employeeRepository.deleteById(id);
 	}
 
-	public Employee updateEmployee(Integer id, Employee employeeDetails) throws EmployeeIdNotFound {
+	public Employee updateEmployee(int id, Employee employeeDetails) throws EmployeeIdNotFound {
 		Employee employee = employeeRepository.findById(id)
 				.orElseThrow(() -> new EmployeeIdNotFound("Employee not found with id " + id));
 

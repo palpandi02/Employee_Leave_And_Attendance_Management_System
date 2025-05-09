@@ -42,10 +42,10 @@ public class AttendanceServiceImpl implements AttendanceService{
     }
 
 
-    public Attendance clockOut(int employeeId) {
+    public Attendance clockOut(int employeeId) throws ClockingException {
         LocalDate today = LocalDate.now();
         Attendance attendance = repo.findByEmployeeIdAndDate(employeeId, today)
-                .orElseThrow(() -> new RuntimeException("No clock-in record found for today"));
+                .orElseThrow(() -> new ClockingException("No clock-in record found for today"));
 
         attendance.setClockOut(LocalDateTime.now());
         attendance.setWorkHours(calculateWorkHours(attendance.getClockIn(), attendance.getClockOut()));

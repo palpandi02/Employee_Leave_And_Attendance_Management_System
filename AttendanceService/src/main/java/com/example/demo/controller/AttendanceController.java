@@ -35,7 +35,7 @@ public class AttendanceController {
 
 	// URL: http://localhost:8081/attendance/clockout
 	@PostMapping("/clockout/{employeeId}")
-	public Attendance clockOut(@PathVariable("employeeId") int employeeId) {
+	public Attendance clockOut(@PathVariable("employeeId") int employeeId) throws ClockingException {
 		return service.clockOut(employeeId);
 
 	}

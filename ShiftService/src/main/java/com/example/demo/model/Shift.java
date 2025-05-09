@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.*;
  
+import java.time.LocalDate;
+ 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -19,7 +21,10 @@ public class Shift {
  
     @NotBlank(message = "Shift type must not be blank")
     @Pattern(regexp = "Day|Night", message = "Shift type must be either 'Day' or 'Night'")
-    private String shiftType; // "Day" or "Night"
+    private String shiftType;
  
     private boolean swapRequested;
+ 
+    @NotNull(message = "Date must not be null")
+    private LocalDate date;
 }

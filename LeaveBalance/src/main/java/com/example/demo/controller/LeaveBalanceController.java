@@ -13,32 +13,33 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.demo.exception.LeaveTypeNotFound;
+import com.example.demo.exception.EmployeeIdNotFoundException;
+import com.example.demo.exception.LeaveTypeNotFoundException;
 import com.example.demo.model.LeaveBalance;
 import com.example.demo.service.LeaveBalanceService;
+//import com.example.demo.util.client.Employeeclient;
 
 @RestController
 @RequestMapping("/balance")
 public class LeaveBalanceController {
 	@Autowired
      LeaveBalanceService service;
-
     @PostMapping("/initialize/{employeeId}")
-    public ResponseEntity<String> init(@PathVariable long employeeId) {
+    public ResponseEntity<String> init(@PathVariable long employeeId) throws EmployeeIdNotFoundException {
         service.initializeLeaveBalance(employeeId);
         return ResponseEntity.ok("Initialized");
     }
 
 
     @GetMapping("/{employeeId}/{leaveType}")
-    public ResponseEntity<LeaveBalance> getBalanceByType(@PathVariable int employeeId, @PathVariable String leaveType) {
+    public ResponseEntity<LeaveBalance> getBalanceByType(@PathVariable int employeeId, @PathVariable String leaveType) throws EmployeeIdNotFoundException {
         return service.getBalanceByType(employeeId, leaveType)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
 
     @PutMapping("/update")
-    public void updateBalance(@RequestBody LeaveBalance balance) throws LeaveTypeNotFound {
+    public void updateBalance(@RequestBody LeaveBalance balance) throws LeaveTypeNotFoundException {
         service.updateLeaveBalance(balance);
     }
     @GetMapping("/employee/{employeeId}")

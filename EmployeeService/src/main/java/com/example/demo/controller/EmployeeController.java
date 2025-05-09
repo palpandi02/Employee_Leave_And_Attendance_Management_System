@@ -16,25 +16,25 @@ public class EmployeeController {
 	@Autowired
 	private EmployeeServiceImpl employeeService;
 	@GetMapping("/check/{id}")
-	public boolean doesEmployeeExist(@PathVariable Integer id) {
+	public boolean doesEmployeeExist(@PathVariable int id) throws EmployeeIdNotFound {
 	    return employeeService.getEmployeeById(id).isPresent();
 	}
-	//  http://localhost:8082/employees
-	@PostMapping
+	//  http://localhost:1012/employees/save
+	@PostMapping("/save")
 	public Employee createEmployee(@RequestBody Employee employee) {
 		return employeeService.saveEmployee(employee);
 	}
 
 	//  http://localhost:8082/employees
-	@GetMapping
+	@GetMapping("/getAll")
 	public List<Employee> getAllEmployees() {
 		return employeeService.getAllEmployees();
 	}
 
 	//  http://localhost:8082/employees/{id}
 	@GetMapping("/{id}")
-	public Optional<Employee> getEmployeeById(@PathVariable Integer id) {
-		return employeeService.getEmployeeById(id);
+	public Employee getEmployeeById(@PathVariable Integer id) throws EmployeeIdNotFound {
+		return employeeService.getEmployeeById(id).get();
 	}
 
 	//  http://localhost:8082/employees/email/{email}

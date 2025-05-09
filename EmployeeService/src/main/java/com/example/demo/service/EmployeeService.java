@@ -9,9 +9,9 @@ import com.example.demo.model.Employee;
 public interface EmployeeService {
     Employee saveEmployee(Employee employee);
     List<Employee> getAllEmployees();
-    Optional<Employee> getEmployeeById(Integer id);
+    Optional<Employee> getEmployeeById(int id) throws EmployeeIdNotFound;
     Optional<Employee> getEmployeeByEmail(String email);
-    void deleteEmployee(Integer id);
-    Employee updateEmployee(Integer id, Employee employeeDetails) throws EmployeeIdNotFound;
-    boolean doesEmployeeExist(Integer id);
+    void deleteEmployee(int id);
+    Employee updateEmployee(int id, Employee employeeDetails) throws EmployeeIdNotFound;
+    boolean doesEmployeeExist(int id);
 }
