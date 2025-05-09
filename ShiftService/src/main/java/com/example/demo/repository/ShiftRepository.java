@@ -14,4 +14,6 @@ public interface ShiftRepository extends JpaRepository<Shift, Integer> {
     List<Shift> findBySwapRequestedTrue();
     @Query("SELECT s FROM Shift s WHERE s.employeeId = :employeeId")
     List<Shift> findShiftsByEmployeeId(@Param("employeeId") int employeeId);
+    @Query("SELECT s.shiftType, COUNT(s) FROM Shift s WHERE s.employeeId = :employeeId GROUP BY s.shiftType")
+    List<Object[]> countShiftsByTypeForEmployee(@Param("employeeId") int employeeId);
 }

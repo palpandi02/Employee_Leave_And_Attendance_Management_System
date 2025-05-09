@@ -1,13 +1,18 @@
 package com.example.demo.controller;
 
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.exception.ClockingException;
@@ -39,5 +44,9 @@ public class AttendanceController {
 	@GetMapping("/employee/{employeeId}")
 	public List<Attendance> getAttendanceByEmployeeId(@PathVariable int employeeId) {
 	    return service.getAttendanceByEmployeeId(employeeId);
+	}
+	@GetMapping("/detailed-stats/{employeeId}")
+	public Map<String, Object> getDetailedStats(@PathVariable int employeeId) {
+		return service.getDetailedAttendanceStats(employeeId);
 	}
 }

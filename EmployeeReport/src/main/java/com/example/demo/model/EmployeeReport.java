@@ -2,11 +2,11 @@ package com.example.demo.model;
 
 import java.util.List;
 
-import com.example.demo.client.ShiftClient;
-import com.example.demo.dto.AttendanceDTO;
+import com.example.demo.dto.AttendanceMonthlyReportDTO;
 import com.example.demo.dto.LeaveBalanceDTO;
 import com.example.demo.dto.LeaveRecordDTO;
 import com.example.demo.dto.ShiftDTO;
+import com.example.demo.dto.ShiftReportDTO;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -20,9 +20,10 @@ import lombok.NoArgsConstructor;
 public class EmployeeReport {
     
 	private int employeeId;
-    private List<AttendanceDTO> attendance;
+    private AttendanceMonthlyReportDTO attendanceReport;
     private List<LeaveBalanceDTO> leaveBalance;
     private List<LeaveRecordDTO> leaveRecords;
-    private List<ShiftDTO> shift;
+    private ShiftReportDTO shift;
+   // private List<ShiftDTO> shift;
     //private ShiftDTO shift;
 }
