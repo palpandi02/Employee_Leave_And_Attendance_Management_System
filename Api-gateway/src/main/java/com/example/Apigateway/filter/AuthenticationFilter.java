@@ -60,18 +60,18 @@ public class AuthenticationFilter extends AbstractGatewayFilterFactory<Authentic
 
     private boolean isAuthorized(String role, String path, String method) {
 		if ("MANAGER".equalsIgnoreCase(role)) {
-			return path.startsWith("/attendance")||path.startsWith("/report") || path.startsWith("/employees")
+			return path.startsWith("/attendance")||path.startsWith("/report") || path.startsWith("/employees")||path.startsWith("/balance/update")
+					||path.startsWith("/balance/initialize")||path.startsWith("/balance/delete")
 					|| path.startsWith("/leave/approve")
-					|| path.startsWith("/leave/history") || path.startsWith("/leave/reject")||path.startsWith("/leave/employee")
-					|| path.startsWith("/shifts/approveSwap") || path.startsWith("/shifts/rejectSwap")
-					|| path.startsWith("/shifts/processSwaps")||path.startsWith("/shifts/shiftByShiftId")
-					|| path.startsWith("/shifts/findall") || path.startsWith("/shifts/save")
-					|| path.startsWith("/shifts/delete") || path.startsWith("/shifts/employee");
+					|| path.startsWith("/leave/getAll") || path.startsWith("/leave/reject")||path.startsWith("/leave/employee")
+					|| path.startsWith("/shifts");
 		} else if ("EMPLOYEE".equalsIgnoreCase(role)) {
 			return path.startsWith("/attendance/clockin") || path.startsWith("/attendance/clockout")
-					|| path.startsWith("/leave/apply") || path.startsWith("/balance/employee")
+					|| path.startsWith("/leave/apply")||path.startsWith("/leave/delete") || path.startsWith("/balance/employee")
+					|| path.startsWith("/balance/shiftbalance")
 					|| path.startsWith("/leave/employee") 
-					|| path.startsWith("/attendance/history") || path.startsWith("/shifts/requestSwap");
+					|| path.startsWith("/attendance/detailed-stats") || path.startsWith("/shifts/requestSwap")
+					|| path.startsWith("/shifts/employee")||path.startsWith("/shifts/byEmployeeAndDate")||path.startsWith("/shifts/shiftByShiftId");
 		}  
 		return false;
 	}

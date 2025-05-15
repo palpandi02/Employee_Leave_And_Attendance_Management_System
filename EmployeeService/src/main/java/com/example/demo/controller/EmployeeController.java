@@ -1,55 +1,67 @@
 package com.example.demo.controller;
 
-import com.example.demo.Exception.EmployeeIdNotFound;
-import com.example.demo.model.Employee;
-import com.example.demo.service.EmployeeServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.example.demo.Exception.EmployeeNotFound;
+import com.example.demo.model.Employee;
+import com.example.demo.service.EmployeeServiceImpl;
+
+import lombok.AllArgsConstructor;
+
 @RestController
 @RequestMapping("/employees")
+@AllArgsConstructor
 public class EmployeeController {
-
-	@Autowired
 	private EmployeeServiceImpl employeeService;
 	@GetMapping("/check/{id}")
-	public boolean doesEmployeeExist(@PathVariable int id) throws EmployeeIdNotFound {
+	public boolean doesEmployeeExist(@PathVariable int id) throws EmployeeNotFound {
 	    return employeeService.getEmployeeById(id).isPresent();
 	}
-	//  http://localhost:1012/employees/save
+	
 	@PostMapping("/save")
 	public Employee createEmployee(@RequestBody Employee employee) {
 		return employeeService.saveEmployee(employee);
 	}
 
-	//  http://localhost:8082/employees
+	
 	@GetMapping("/getAll")
 	public List<Employee> getAllEmployees() {
 		return employeeService.getAllEmployees();
 	}
 
-	//  http://localhost:8082/employees/{id}
+	
 	@GetMapping("/{id}")
-	public Employee getEmployeeById(@PathVariable Integer id) throws EmployeeIdNotFound {
-		return employeeService.getEmployeeById(id).get();
+	public Employee getEmployeeById(@PathVariable Integer id) throws EmployeeNotFound {
+	    Optional<Employee> optional=employeeService.getEmployeeById(id);
+	    if(optional.isPresent()) {
+		 return optional.get();}
+	    else {
+	       throw new EmployeeNotFound("Employee Not Found");}
 	}
 
-	//  http://localhost:8082/employees/email/{email}
+	
 	@GetMapping("/email/{email}")
-	public Optional<Employee> getEmployeeByEmail(@PathVariable String email) {
+	public Optional<Employee> getEmployeeByEmail(@PathVariable String email) throws EmployeeNotFound {
 		return employeeService.getEmployeeByEmail(email);
 	}
 
-	//  http://localhost:8082/employees/{id}
+	
 	@PutMapping("/update/{id}")
-	public Employee updateEmployee(@PathVariable Integer id, @RequestBody Employee employeeDetails) throws EmployeeIdNotFound {
+	public Employee updateEmployee(@PathVariable Integer id, @RequestBody Employee employeeDetails) throws EmployeeNotFound {
 		return employeeService.updateEmployee(id, employeeDetails);
 	}
 
-	//  http://localhost:8082/employees/{id}
+	
 	@DeleteMapping("/delete/{id}")
 	public void deleteEmployee(@PathVariable Integer id) {
 		employeeService.deleteEmployee(id);

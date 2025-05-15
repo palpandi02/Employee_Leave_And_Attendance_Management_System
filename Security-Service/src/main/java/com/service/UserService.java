@@ -8,25 +8,24 @@ import com.entity.UserInfo;
 import com.feignclient.Employeeclient;
 import com.repository.UserInfoRepository;
 
-@Service
-public class UserService {
-	@Autowired
-	private UserInfoRepository repository;
+import lombok.AllArgsConstructor;
 
-	@Autowired
+@Service
+@AllArgsConstructor
+public class UserService {
+	private UserInfoRepository repository;
 	private PasswordEncoder passwordEncoder;
-	@Autowired
 	private Employeeclient employeeClient;
  
 	public String addUser(UserInfo userInfo) {
 		String name = userInfo.getName();
 		UserInfo obj1 = repository.findByName(name).orElse(null);
-		System.out.println(obj1);
+		
  
 		if (obj1 == null) {
-			System.out.println("Checking if employee exists with ID: " + userInfo.getEmployeeId());
+			//System.out.println("Checking if employee exists with ID: " + userInfo.getEmployeeId());
 			boolean employeeExists = employeeClient.doesEmployeeExist(userInfo.getEmployeeId());
-			System.out.println("Employee exists: " + employeeExists);
+			//System.out.println("Employee exists: " + employeeExists);
  
 			if (employeeExists) {
 				userInfo.setPassword(passwordEncoder.encode(userInfo.getPassword()));

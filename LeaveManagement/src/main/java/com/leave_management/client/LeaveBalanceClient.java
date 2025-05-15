@@ -9,7 +9,7 @@ import java.util.List;
 @FeignClient(name="LEAVEBALANCE",path="/balance")
 public interface LeaveBalanceClient {
 
-    @GetMapping("/{employeeId}/{leaveType}")
+    @GetMapping("/shiftbalance/{employeeId}/{leaveType}")
     LeaveBalanceDTO getBalanceByType(@PathVariable long employeeId, @PathVariable String leaveType);
 
     @PutMapping("/update")

@@ -1,6 +1,5 @@
 package com.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -19,20 +18,16 @@ import com.repository.UserInfoRepository;
 import com.service.JwtService;
 import com.service.UserService;
 
+import lombok.AllArgsConstructor;
+
 @RestController
 @RequestMapping("/auth")
 @CrossOrigin("*")
+@AllArgsConstructor
 public class AuthController {
-
-    @Autowired
     private UserService service;
-    @Autowired
     private JwtService jwtService;
-    
-    @Autowired
     private UserInfoRepository repo;
-
-    @Autowired
     private AuthenticationManager authenticationManager;
 
     @GetMapping("/welcome")		//http://localhost:9090/auth/welcome

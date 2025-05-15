@@ -5,7 +5,6 @@ import java.util.List;
 import com.example.demo.dto.AttendanceMonthlyReportDTO;
 import com.example.demo.dto.LeaveBalanceDTO;
 import com.example.demo.dto.LeaveRecordDTO;
-import com.example.demo.dto.ShiftDTO;
 import com.example.demo.dto.ShiftReportDTO;
 
 import lombok.AllArgsConstructor;
@@ -24,6 +23,4 @@ public class EmployeeReport {
     private List<LeaveBalanceDTO> leaveBalance;
     private List<LeaveRecordDTO> leaveRecords;
     private ShiftReportDTO shift;
-   // private List<ShiftDTO> shift;
-    //private ShiftDTO shift;
 }

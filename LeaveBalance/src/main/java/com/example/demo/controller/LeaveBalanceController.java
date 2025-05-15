@@ -17,7 +17,6 @@ import com.example.demo.exception.EmployeeIdNotFoundException;
 import com.example.demo.exception.LeaveTypeNotFoundException;
 import com.example.demo.model.LeaveBalance;
 import com.example.demo.service.LeaveBalanceService;
-//import com.example.demo.util.client.Employeeclient;
 
 @RestController
 @RequestMapping("/balance")
@@ -25,13 +24,13 @@ public class LeaveBalanceController {
 	@Autowired
      LeaveBalanceService service;
     @PostMapping("/initialize/{employeeId}")
-    public ResponseEntity<String> init(@PathVariable long employeeId) throws EmployeeIdNotFoundException {
+    public ResponseEntity<String> init(@PathVariable long employeeId)  {
         service.initializeLeaveBalance(employeeId);
         return ResponseEntity.ok("Initialized");
     }
 
 
-    @GetMapping("/{employeeId}/{leaveType}")
+    @GetMapping("/shiftbalance/{employeeId}/{leaveType}")
     public ResponseEntity<LeaveBalance> getBalanceByType(@PathVariable int employeeId, @PathVariable String leaveType) throws EmployeeIdNotFoundException {
         return service.getBalanceByType(employeeId, leaveType)
                 .map(ResponseEntity::ok)
@@ -43,7 +42,7 @@ public class LeaveBalanceController {
         service.updateLeaveBalance(balance);
     }
     @GetMapping("/employee/{employeeId}")
-    public List<LeaveBalance> getBalancesByEmployeeId(@PathVariable int employeeId) {
+    public List<LeaveBalance> getBalancesByEmployeeId(@PathVariable int employeeId) throws EmployeeIdNotFoundException {
         return service.getLeaveBalancesByEmployeeId(employeeId);
     }
     @DeleteMapping("/delete/{employeeId}")
