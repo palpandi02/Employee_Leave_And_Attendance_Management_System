@@ -60,8 +60,10 @@ public class EmployeeController {
 	public Employee updateEmployee(@PathVariable Integer id, @RequestBody Employee employeeDetails) throws EmployeeNotFound {
 		return employeeService.updateEmployee(id, employeeDetails);
 	}
-
-	
+	@GetMapping("/count")
+	public long getEmployeeCount() {
+		return employeeService.countEmployee();
+	}
 	@DeleteMapping("/delete/{id}")
 	public void deleteEmployee(@PathVariable Integer id) {
 		employeeService.deleteEmployee(id);

@@ -47,4 +47,11 @@ public class UserService {
 		}
 		return "Not Found";
 	}
+	public int getEmployeeId(String username) {
+		UserInfo obj2 = repository.findByName(username).orElse(null);
+		if (obj2 != null) {
+			return obj2.getEmployeeId();
+		}
+		return -1;
+	}
 }

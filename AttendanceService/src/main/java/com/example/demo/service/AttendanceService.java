@@ -12,4 +12,5 @@ public interface AttendanceService {
 	public Attendance clockOut(int employeeId) throws ClockingException;
 	public Long calculateWorkHours(LocalDateTime clockIn, LocalDateTime clockOut);
 	Map<String, Object> getDetailedAttendanceStats(int employeeId);
+	public List<Attendance> getAllAttendances();
 }

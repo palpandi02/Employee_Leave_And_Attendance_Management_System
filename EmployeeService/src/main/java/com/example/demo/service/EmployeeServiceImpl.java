@@ -92,4 +92,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         logger.info("Updated employee details for id: {}", id);
         return employeeRepository.save(employee);
     }
+    public long countEmployee() {
+    	return employeeRepository.count();
+    }
 }

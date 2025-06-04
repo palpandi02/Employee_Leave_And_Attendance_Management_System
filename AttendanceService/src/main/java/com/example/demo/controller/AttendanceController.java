@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import java.util.List;
 import java.util.Map;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -46,5 +47,9 @@ public class AttendanceController {
 	@GetMapping("/detailed-stats/{employeeId}")
 	public Map<String, Object> getDetailedStats(@PathVariable int employeeId) {
 		return service.getDetailedAttendanceStats(employeeId);
+	}
+	@GetMapping("/getall")
+	public List<Attendance> getAll(){
+		return service.getAllAttendances();
 	}
 }

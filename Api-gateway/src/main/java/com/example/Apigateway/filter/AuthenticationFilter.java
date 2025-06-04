@@ -66,10 +66,10 @@ public class AuthenticationFilter extends AbstractGatewayFilterFactory<Authentic
 					|| path.startsWith("/leave/getAll") || path.startsWith("/leave/reject")||path.startsWith("/leave/employee")
 					|| path.startsWith("/shifts");
 		} else if ("EMPLOYEE".equalsIgnoreCase(role)) {
-			return path.startsWith("/attendance/clockin") || path.startsWith("/attendance/clockout")
+			return path.startsWith("/attendance")||path.startsWith("/employees")
 					|| path.startsWith("/leave/apply")||path.startsWith("/leave/delete") || path.startsWith("/balance/employee")
 					|| path.startsWith("/balance/shiftbalance")
-					|| path.startsWith("/leave/employee") 
+					|| path.startsWith("/leave/employee") ||path.startsWith("/report")
 					|| path.startsWith("/attendance/detailed-stats") || path.startsWith("/shifts/requestSwap")
 					|| path.startsWith("/shifts/employee")||path.startsWith("/shifts/byEmployeeAndDate")||path.startsWith("/shifts/shiftByShiftId");
 		}  

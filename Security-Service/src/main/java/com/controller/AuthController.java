@@ -22,7 +22,6 @@ import lombok.AllArgsConstructor;
 
 @RestController
 @RequestMapping("/auth")
-@CrossOrigin("*")
 @AllArgsConstructor
 public class AuthController {
     private UserService service;
@@ -57,5 +56,10 @@ public class AuthController {
     public String getRoles(@PathVariable String username)
     {
     	return service.getRoles(username);
+    }
+    @GetMapping("/getemployeeid/{username}")		//http://localhost:9090/auth/getroles/{username}
+    public int getEmployeeId(@PathVariable String username)
+    {
+    	return service.getEmployeeId(username);
     }
 }

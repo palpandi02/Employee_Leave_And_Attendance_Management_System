@@ -14,4 +14,5 @@ public interface EmployeeService {
     void deleteEmployee(int id);
     Employee updateEmployee(int id, Employee employeeDetails) throws EmployeeNotFound;
     boolean doesEmployeeExist(int id) throws EmployeeNotFound;
+    public long countEmployee();
 }

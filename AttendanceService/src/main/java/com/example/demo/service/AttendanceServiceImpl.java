@@ -137,4 +137,10 @@ public class AttendanceServiceImpl implements AttendanceService {
         logger.info("Completed generating attendance report for employeeId: {}", employeeId);
         return result;
     }
+
+	@Override
+	public List<Attendance> getAllAttendances() {
+		// TODO Auto-generated method stub
+		return repo.findAll();
+	}
 }
