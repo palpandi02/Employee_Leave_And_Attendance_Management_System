@@ -126,6 +126,8 @@ public class ShiftServiceImp implements ShiftService {
             Shift shift = optionalShift.get();
             if (shift.isSwapRequested()) {
                 shift.setSwapRequested(false);
+                String type=shift.getShiftType();
+                shift.setShiftType((type.equals("Day")?"Night":"Day"));
                 repository.save(shift);
                 logger.info("Swap approved for employeeId: {}", employeeId);
                 return "Swap approved for employee ID " + employeeId;
